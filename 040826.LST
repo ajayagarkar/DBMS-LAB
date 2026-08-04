@@ -1,0 +1,31 @@
+SQL>  create table course(
+  2      course_name varchar2(10) primary key,
+  3      course_Id number(10) not null
+  4      );
+
+Table created.
+
+SQL> desc course;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSE_NAME                               NOT NULL VARCHAR2(10)
+ COURSE_ID                                 NOT NULL NUMBER(10)
+
+SQL> create table student(
+  2      reg_number varchar2(10) primary key,
+  3      name varchar2(10) not null,
+  4      age number(5) check(age>=18),
+  5      email varchar2(25) unique
+  6      );
+
+Table created.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REG_NUMBER                                NOT NULL VARCHAR2(10)
+ NAME                                      NOT NULL VARCHAR2(10)
+ AGE                                                NUMBER(5)
+ EMAIL                                              VARCHAR2(25)
+
+SQL> spool off
