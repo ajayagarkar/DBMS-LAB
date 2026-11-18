@@ -1,0 +1,224 @@
+
+SQL*Plus: Release 11.2.0.1.0 Production on Sun Jul 19 23:56:48 2026
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: A074@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> create table student_info
+  2  (
+  3  student_name varchar2(20),
+  4  REGNO varchar2(13),
+  5  DOB date,
+  6  address1 varchar2(20),
+  7  course_name varchar2(6),
+  8  DEPT varchar2(6),
+  9  current_year varchar2(10),
+ 10  GENDER char
+ 11  );
+
+Table created.
+
+SQL> desc student_info
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NAME                                       VARCHAR2(20)
+ REGNO                                              VARCHAR2(13)
+ DOB                                                DATE
+ ADDRESS1                                           VARCHAR2(20)
+ COURSE_NAME                                        VARCHAR2(6)
+ DEPT                                               VARCHAR2(6)
+ CURRENT_YEAR                                       VARCHAR2(10)
+ GENDER                                             CHAR(1)
+
+SQL>CREATE TABLE student_tab
+  2  (
+  3      student_name VARCHAR2(20),
+  4      REGNO VARCHAR2(13) PRIMARY KEY,
+  5      DOB DATE,
+  6     DEPT VARCHAR2(6),
+  7      GENDER CHAR(1)
+  8 );
+
+SQL> desc student_table
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NAME                                       VARCHAR2(20)
+ REGNO                                     NOT NULL VARCHAR2(13)
+ DOB                                                DATE
+ COURSE_NAME                                        VARCHAR2(6)
+ DEPT                                               VARCHAR2(6)
+ GENDER                                             CHAR(1)
+
+
+SQL>CREATE TABLE student_tab
+  2  (
+  3      student_name VARCHAR2(20),
+  4      REGNO VARCHAR2(13)
+  5          CONSTRAINT PK_STUDENT PRIMARY KEY,
+  6      DOB DATE,
+  7      DEPT VARCHAR2(6),
+  8      GENDER CHAR(1)
+  9  );
+
+Table created.
+
+SQL> desc student_tab
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NAME                                       VARCHAR2(20)
+ REGNO                                     NOT NULL VARCHAR2(13)
+ DOB                                                DATE
+ DEPT                                               VARCHAR2(6)
+ GENDER                                             CHAR(1)
+
+SQL> CREATE TABLE student_tab
+  2  (
+  3      student_name VARCHAR2(20),
+  4      REGNO VARCHAR2(13),
+  5      DOB DATE,
+  6      DEPT VARCHAR2(6),
+  7      GENDER CHAR(1),
+  8      CONSTRAINT PK_STUDENT PRIMARY KEY (REGNO)
+  9  );
+
+SQL> CREATE TABLE student_tab1
+  2  (
+  3      student_name VARCHAR2(20),
+  4      REGNO VARCHAR2(13),
+  5      DOB DATE,
+  6      DEPT VARCHAR2(6),
+  7      GENDER CHAR(1),
+  8      CONSTRAINT T PRIMARY KEY (REGNO)
+  9  );
+
+Table created.
+
+SQL> desc student_tab1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NAME                                       VARCHAR2(20)
+ REGNO                                     NOT NULL VARCHAR2(13)
+ DOB                                                DATE
+ DEPT                                               VARCHAR2(6)
+ GENDER                                             CHAR(1)
+
+SQL>SQL> CREATE TABLE student_tab
+  2  (
+  3      student_name VARCHAR2(20),
+  4      REGNO VARCHAR2(13)
+  5          CONSTRAINT PK_STUDENT PRIMARY KEY,
+  6      DOB DATE,
+  7      DEPT VARCHAR2(6),
+  8      GENDER CHAR(1)
+  9  );
+Table created.
+
+
+SQL> CREATE TABLE marks_tab
+  2  (
+  3      REGNO VARCHAR2(13)
+  4          CONSTRAINT FK_STUDENT REFERENCES student_tab(REGNO),
+  5      SUBJECT VARCHAR2(20),
+  6      MARKS NUMBER(3)
+  7  );
+
+Table created.
+
+SQL> INSERT INTO student_tab
+  2  VALUES ('DEVA', '11249A074', '10-jun-2007', 'CSE', 'M');
+
+1 row created.
+
+SQL> INSERT INTO marks_tab
+  2  VALUES ('11249A074', 'DBMS', 85);
+1 row created.
+
+SQL> select * from student_tab
+  2  ;
+
+STUDENT_NAME         REGNO         DOB       DEPT   G
+-------------------- ------------- --------- ------ -
+DEVA                 11249A074     10-JUN-07 CSE    M
+
+SQL> select * from marks_tab;
+
+REGNO         SUBJECT                   MARKS
+------------- -------------------- ----------
+11249A085     DBMS                         85
+
+SQL> SELECT s.student_name,
+  2         s.regno,
+  3         m.subject,
+  4         m.marks
+  5  FROM student_tab s
+  6  JOIN marks_tab m
+  7  ON s.regno = m.regno;
+
+STUDENT_NAME         REGNO         SUBJECT                   MARKS
+-------------------- ------------- -------------------- ----------
+DEVA                 11249A085     DBMS                         85
+
+ SQL> CREATE TABLE Students(
+  2      regno VARCHAR(13) PRIMARY KEY,
+  3      name VARCHAR(50) NOT NULL,
+  4      email VARCHAR(100) UNIQUE,
+  5      dept VARCHAR(10),
+  6      gender VARCHAR(10) DEFAULT 'Male',
+  7      age INT CHECK (age >= 18),
+  8      address VARCHAR(100) NULL,
+  9      FOREIGN KEY (dept) REFERENCES Depart(dept)
+ 10  );
+
+Table created.
+
+SQL> CREATE TABLE Depart(
+  2      dept VARCHAR(10) PRIMARY KEY,
+  3      dept_name VARCHAR(50) NOT NULL
+  4  );
+
+Table created.
+
+SQL> insert into depart values('1','cse');
+
+1 row created.
+
+SQL> insert into students values('11249A085','deva','11249a085@kanchiuniv.ac.in','1','male','19','chittoor');
+
+1 row created.
+
+SQL> select * from students ;
+
+REGNO         NAME                EMAIL                   DEPT       GENDER            AGE    ADDRESS 
+------------- ---------- ------------------------------ ---------- ----------   ---------- ----------
+
+11249A085     deva       11249a085@kanchiuniv.ac.in     1          male              19      chittoor
+
+SQL> select * from depart ;
+
+DEPT       DEPT_NAME
+---------- --------------------------------------------------  
+SQL> select s.regno,
+  2  s.name,
+  3  s.email,
+  4  s.dept,
+  5  s.gender,
+  6  s.age,
+  7  s.address,
+  8  d.dept,
+  9  d.dept_name
+ 10  from students s
+ 11  join depart d
+ 12  on s.dept = d.dept;
+
+REGNO         NAME                   EMAIL                DEPT       GENDER           AGE     ADDRESS    DEPT_NAME
+------------- ---------- ------------------------------ ---------- ----------  ---------- ---------- ------------
+
+   11249A085     deva       11249a074@kanchiuniv.ac.in     1          male          19      chittoor     cse
+
+SQL>
+

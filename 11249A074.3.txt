@@ -1,0 +1,154 @@
+SQL*Plus: Release 11.2.0.1.0 Production on Sun Sep 6 23:35:19 2026
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: A074@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> select * from tab
+  2  ;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+STUDENT_TABLE                  TABLE
+STUDENT_TAB1                   TABLE
+STUDENT_TAB                    TABLE
+STUDENT_INFO                   TABLE
+STUDENTS                       TABLE
+STUDENT3                       TABLE
+STUDENT1                       TABLE
+STUDENT02                      TABLE
+STUDENT00                      TABLE
+STUDENT                        TABLE
+STU                            TABLE
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+MARKS_TAB                      TABLE
+INFO                           TABLE
+DEPARTMENT                     TABLE
+DEPART                         TABLE
+DEP                            TABLE
+
+16 rows selected.
+
+SQL> create table students_tab
+  2  (
+  3  STUDENT_ID NUMBER(5) PRIMARY KEY,
+  4   STUDENT_NAME VARCHAR2(30),
+  5   DEPARTMENT VARCHAR2(20),
+  6  MARKS NUMBER(3));
+
+Table created.
+
+SQL> insert into students_tab values(085,'DEVA','CSE',87);
+
+1 row created.
+
+SQL> INSERT INTO STUDENTS_TAB VALUES(099,'NARENDRA','CSE',99);
+
+1 row created.
+
+SQL> INSERT INTO STUDENTS_TAB VALUES(109,'SRAVANTH','ECE',88);
+
+1 row created.
+
+SQL> INSERT INTO STUDENTS_TAB VALUES(117,'DEERAJ','EEE',90);
+
+1 row created.
+
+
+SQL> SELECT COUNT(*) AS TOTAL_STUDENT FROM STUDENTS_TAB;
+
+TOTAL_STUDENT
+-------------
+            4
+
+SQL> SELECT SUM(MARKS) AS TOTAL_MARKS FROM STUDENTS_TAB;
+
+TOTAL_MARKS
+-----------
+        364
+
+SQL> SELECT AVG(MARKS) AS AVERAGE_MARKS FROM STUDENTS_TAB;
+
+AVERAGE_MARKS
+-------------
+           91
+
+SQL> SELECT MAX(MARKS) AS HIGHEST_MARKS FROM STUDENTS_TAB;
+
+HIGHEST_MARKS
+-------------
+           99
+
+SQL> SELECT MIN(MARKS) AS LOWEST_MARKS FROM STUDENTS_TAB;
+
+LOWEST_MARKS
+------------
+          87
+
+SQL> SELECT DEPARTMENT, COUNT(*) AS TOTAL_STUDENTS
+  2  FROM STUDENTS_TAB GROUP BY DEPARTMENT;
+
+DEPARTMENT           TOTAL_STUDENTS
+-------------------- --------------
+EEE                               1
+CSE                               2
+ECE                               1
+
+SQL> SELECT DEPARTMENT, AVG(MARKS) AS TOTAL_STUDENTS FROM STUDENTS_TAB  GROUP BY DEPARTMENT;
+
+DEPARTMENT           TOTAL_STUDENTS
+-------------------- --------------
+EEE                              90
+CSE                              93
+ECE                              88
+
+SQL> SELECT DEPARTMENT, MAX(MARKS) AS TOTAL_STUDENTS FROM STUDENTS_TAB  GROUP BY DEPARTMENT;
+
+DEPARTMENT           TOTAL_STUDENTS
+-------------------- --------------
+EEE                              90
+CSE                              99
+ECE                              88
+
+SQL> SELECT DEPARTMENT, AVG(MARKS) AS AVG_MARKS
+  2  FROM STUDENTS_TAB GROUP BY DEPARTMENT HAVING AVG(MARKS) > 87;
+
+DEPARTMENT            AVG_MARKS
+-------------------- ----------
+EEE                          90
+CSE                          93
+ECE                          88
+
+
+SQL> SELECT DEPARTMENT,COUNT(*) AS TOTAL_STUDENTS FROM STUDENTS_TAB GROUP BY DEPARTMENT HAVING COUNT(*) > 1;
+
+DEPARTMENT           TOTAL_STUDENTS
+-------------------- --------------
+CSE                               2
+
+SQL> SELECT DEPARTMENT, COUNT(*) AS NO_OF_STUDENTS,
+  2   AVG(MARKS) AS AVG_MARKS, MAX(MARKS) AS HIGHEST_MARK
+  3  FROM STUDENTS_TAB GROUP BY DEPARTMENT HAVING AVG(MARKS) > 80;
+
+DEPARTMENT           NO_OF_STUDENTS  AVG_MARKS HIGHEST_MARK
+-------------------- -------------- ---------- ------------
+EEE                               1         90           90
+CSE                               2         93           99
+ECE                               1         88           88
+
+SQL> SELECT * FROM STUDENTS_TAB;
+
+STUDENT_ID STUDENT_NAME                   DEPARTMENT                MARKS
+---------- ------------------------------ -------------------- ----------
+        85 DEVA                           CSE                          87
+        99 NARENDRA                       CSE                          99
+       109 SRAVANTH                       ECE                          88
+       117 DEERAJ                         EEE                          90
+
+SQL>

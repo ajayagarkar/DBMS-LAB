@@ -1,0 +1,121 @@
+
+SQL*Plus: Release 11.2.0.1.0 Production on Sun Jul 19 23:56:48 2026
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: A074@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> create table student_info
+  2  (
+  3  student_name varchar2(20),
+  4  REGNO varchar2(13),
+  5  DOB date,
+  6  address1 varchar2(20),
+  7  course_name varchar2(6),
+  8  DEPT varchar2(6),
+  9  current_year varchar2(10),
+ 10  GENDER char
+ 11  );
+
+Table created.
+
+SQL> desc student_info
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NAME                                       VARCHAR2(20)
+ REGNO                                              VARCHAR2(13)
+ DOB                                                DATE
+ ADDRESS1                                           VARCHAR2(20)
+ COURSE_NAME                                        VARCHAR2(6)
+ DEPT                                               VARCHAR2(6)
+ CURRENT_YEAR                                       VARCHAR2(10)
+ GENDER                                             CHAR(1)
+SQL>  create table student3 as select * from student_info where 1<0;
+
+Table created.
+
+SQL> select * from student3;
+
+no rows selected
+
+SQL> desc student3;
+
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NAME                                       VARCHAR2(20)
+ REGNO                                              VARCHAR2(13)
+ DOB                                                DATE
+ ADDRESS1                                           VARCHAR2(20)
+ COURSE_NAME                                        VARCHAR2(6)
+ DEPT                                               VARCHAR2(6)
+ CURRENT_YEAR                                       VARCHAR2(10)
+ GENDER                                             CHAR(1)
+ STATE                                              VARCHAR2(15)
+
+SQL>
+
+SQL>  create table student4 as select student_name,REGNO,DOB,dept from student_info where 1<0;
+
+Table created.
+
+SQL> select * from student4;
+
+no rows selected
+
+SQL> desc student4;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NAME                                       VARCHAR2(20)
+ REGNO                                              VARCHAR2(13)
+ DOB                                                DATE
+ DEPT                                               VARCHAR2(6)
+
+SQL> Alter Table student_info Modify dept Varchar2(7);
+
+Table altered.
+
+SQL>Alter Table student_info Modify(student_name Varchar2(25),regno varchar2(15));
+
+Table altered.
+
+SQL> desc student_info;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NAME                                       VARCHAR2(25)
+ REGNO                                              VARCHAR2(15)
+ DOB                                                DATE
+ ADDRESS1                                           VARCHAR2(20)
+ GENDER                                             CHAR(1)
+ DEPT                                               VARCHAR2(7)
+
+SQL>Alter table student_info modify address1 varchar2(25);
+
+Table altered.
+
+SQL> desc student_info;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NAME                                       VARCHAR2(25)
+ REGNO                                              VARCHAR2(15)
+ DOB                                                DATE
+ ADDRESS1                                           VARCHAR2(25)
+ GENDER                                             CHAR(1)
+ DEPT                                               VARCHAR2(7)
+
+SQL> alter table student_info modify(regno varchar2(13),dept varchar2(8));
+
+Table altered.
+
+SQL> desc student_info;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NAME                                       VARCHAR2(25)
+ REGNO                                              VARCHAR2(13)
+ DOB                                                DATE
+ ADDRESS1                                           VARCHAR2(25)
+ GENDER                                             CHAR(1)
+ DEPT                                               VARCHAR2(8)

@@ -1,0 +1,179 @@
+
+SQL*Plus: Release 11.2.0.1.0 Production on Sun Jul 19 23:56:48 2026
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: A074@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> create table student_info
+  2  (
+  3  student_name varchar2(20),
+  4  REGNO varchar2(13),
+  5  DOB date,
+  6  address1 varchar2(20),
+  7  course_name varchar2(6),
+  8  DEPT varchar2(6),
+  9  current_year varchar2(10),
+ 10  GENDER char
+ 11  );
+
+Table created.
+
+SQL> desc student_info
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NAME                                       VARCHAR2(20)
+ REGNO                                              VARCHAR2(13)
+ DOB                                                DATE
+ ADDRESS1                                           VARCHAR2(20)
+ COURSE_NAME                                        VARCHAR2(6)
+ DEPT                                               VARCHAR2(6)
+ CURRENT_YEAR                                       VARCHAR2(10)
+ GENDER                                             CHAR(1)
+
+SQL> create table student1 as select * from student_info;
+
+Table created.
+
+SQL> desc student1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NAME                                       VARCHAR2(20)
+ REGNO                                              VARCHAR2(13)
+ DOB                                                DATE
+ ADDRESS1                                           VARCHAR2(20)
+ COURSE_NAME                                        VARCHAR2(6)
+ DEPT                                               VARCHAR2(6)
+ CURRENT_YEAR                                       VARCHAR2(10)
+ GENDER                                             CHAR(1)
+
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+STUDENT_INFO                   TABLE
+STUDENT1                       TABLE
+
+SQL> create table student2 as select student_name,REGNO,DOB,dept from student_info;
+
+Table created.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+STUDENT_INFO                   TABLE
+STUDENT2                       TABLE
+STUDENT1                       TABLE
+
+
+SQL> drop table student2;
+
+Table dropped.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+STUDENT_INFO                   TABLE
+STUDENT1                       TABLE
+
+SQL> alter table student_info add state varchar2(15);
+
+Table altered.
+
+SQL> desc student_info
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NAME                                       VARCHAR2(20)
+ REGNO                                              VARCHAR2(13)
+ DOB                                                DATE
+ ADDRESS1                                           VARCHAR2(20)
+ COURSE_NAME                                        VARCHAR2(6)
+ DEPT                                               VARCHAR2(6)
+ CURRENT_YEAR                                       VARCHAR2(10)
+ GENDER                                             CHAR(1)
+ STATE                                              VARCHAR2(15)
+
+
+SQL> insert into student_info values(
+  2  'DEVANANDA','11249A085','10-jun-2007','20-143,chittoor','BE-CSE','CSE','3rd year','M','AP'
+  3  );
+
+1 row created.
+
+SQL> desc student_info
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NAME                                       VARCHAR2(20)
+ REGNO                                              VARCHAR2(13)
+ DOB                                                DATE
+ ADDRESS1                                           VARCHAR2(20)
+ COURSE_NAME                                        VARCHAR2(6)
+ DEPT                                               VARCHAR2(6)
+ CURRENT_YEAR                                       VARCHAR2(10)
+ GENDER                                             CHAR(1)
+ STATE                                              VARCHAR2(15)
+
+SQL> select * from student_info;
+
+STUDENT_NAME         REGNO         DOB       ADDRESS1             COURSE DEPT
+-------------------- ------------- --------- -------------------- ------ ------
+CURRENT_YE G STATE
+---------- - ---------------
+DEVANANDA            11249A085     10-JUN-07 20-143,chittoor      BE-CSE CSE
+3rd year   M AP
+
+
+SQL> select student_name,regno,dob,current_year,gender from student_info;
+
+STUDENT_NAME         REGNO         DOB       CURRENT_YE G
+-------------------- ------------- --------- ---------- -
+DEVANANDA            11249A085     10-JUN-07 3rd year   M
+
+SQL> insert into student_info values(
+  2  'Sravanth','11249A109','14-oct-2005','20-143,krishna','BE-CSE','CSE','3rd year','M','AP'
+  3  );
+
+1 row created.
+
+SQL> select * from student_info;
+
+STUDENT_NAME         REGNO         DOB       ADDRESS1             COURSE DEPT
+-------------------- ------------- --------- -------------------- ------ ------
+CURRENT_YE G STATE
+---------- - ---------------
+DEVANANDA            11249A085     10-JUN-07 20-143,chittoor      BE-CSE CSE
+3rd year   M AP
+
+Sravanth             11249A109     14-OCT-05 20-143,krishna       BE-CSE CSE
+3rd year   M AP
+
+
+SQL> select student_name,regno,dob,current_year,gender from student_info;
+
+STUDENT_NAME         REGNO         DOB       CURRENT_YE G
+-------------------- ------------- --------- ---------- -
+DEVANANDA            11249A034     10-JUN-07 3rd year   M
+Sravanth             11249A109     14-OCT-05 3rd year   M
+
+SQL> insert into student_info values(
+  2  'Deeraj','11249A117','01-dec-2006','20-143,','BE-CSE','CSE','3rd year','M','AP'
+  3  );
+
+1 row created.
+
+SQL> select student_name,regno,dob,current_year,gender from student_info;
+
+STUDENT_NAME         REGNO         DOB       CURRENT_YE G
+-------------------- ------------- --------- ---------- -
+DEVANANDA            11249A075     10-JUN-07 3rd year   M
+Sravanth             11249A099     14-OCT-05 3rd year   M
+Deeraj               11249A117     01-DEC-06 3rd year   M
+
+
